@@ -48,6 +48,10 @@ export default function Tasks() {
 
   return (
     <div className={styles.container}>
+      <Link href="/" className={styles.backLink}>
+        ← Back to Home
+      </Link>
+      
       <h1 className={styles.title}>Tasks</h1>
       
       <form onSubmit={addTask} className={styles.form}>
