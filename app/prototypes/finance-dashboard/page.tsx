@@ -39,6 +39,7 @@ export default function FinanceDashboard() {
   // Calculate total income and expenses
   const totalIncome = Object.values(incomeData).reduce((acc, curr) => acc + curr, 0);
   const totalExpenses = Object.values(monthlyExpenses.march).reduce((acc, curr) => acc + curr, 0);
+  const netAmount = totalIncome - totalExpenses;
 
   // Prepare data for monthly expenses chart
   const expenseChartData = {
@@ -73,61 +74,76 @@ export default function FinanceDashboard() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Personal finance dashboard</h1>
-      </header>
+      <div className={styles.content}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Personal finance dashboard</h1>
+        </header>
 
-      <div className={styles.dashboard}>
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>Monthly overview</h2>
-          <div>
-            <p>Total income: <span className={styles.totalIncome}>${totalIncome}</span></p>
-            <p>Total expenses: <span className={styles.totalExpenses}>${totalExpenses}</span></p>
+        <div className={styles.dashboard}>
+          <div className={styles.overviewGrid}>
+            <div className={styles.overviewCard}>
+              <h3 className={styles.overviewTitle}>Total Income</h3>
+              <div className={styles.overviewAmount}>${totalIncome.toLocaleString()}</div>
+            </div>
+            
+            <div className={styles.overviewCard}>
+              <h3 className={styles.overviewTitle}>Total Expenses</h3>
+              <div className={styles.overviewAmount}>${totalExpenses.toLocaleString()}</div>
+            </div>
+            
+            <div className={styles.overviewCard}>
+              <h3 className={styles.overviewTitle}>Net {netAmount >= 0 ? 'Income' : 'Loss'}</h3>
+              <div className={`${styles.overviewAmount} ${netAmount >= 0 ? styles.positive : styles.negative}`}>
+                ${Math.abs(netAmount).toLocaleString()}
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>Expense breakdown</h2>
-          <div className={styles.chartContainer}>
-            <Bar 
-              data={expenseChartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false },
-                }
-              }}
-            />
-          </div>
-        </div>
+          <div className={styles.dashboardGrid}>
+            <div className={styles.card}>
+              <h2 className={styles.cardTitle}>Savings trend</h2>
+              <div className={styles.chartContainer}>
+                <Line 
+                  data={savingsChartData}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { display: false },
+                    }
+                  }}
+                />
+              </div>
+            </div>
 
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>Income sources</h2>
-          <div className={styles.chartContainer}>
-            <Doughnut 
-              data={incomeChartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-              }}
-            />
-          </div>
-        </div>
+            <div className={styles.card}>
+              <h2 className={styles.cardTitle}>Income sources</h2>
+              <div className={styles.chartContainer}>
+                <Doughnut 
+                  data={incomeChartData}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                  }}
+                />
+              </div>
+            </div>
 
-        <div className={styles.card}>
-          <h2 className={styles.cardTitle}>Savings trend</h2>
-          <div className={styles.chartContainer}>
-            <Line 
-              data={savingsChartData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false },
-                }
-              }}
-            />
+            <div className={`${styles.card} ${styles.expenseCard}`}>
+              <h2 className={styles.cardTitle}>Expense breakdown</h2>
+              <div className={styles.chartContainer}>
+                <Bar 
+                  data={expenseChartData}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { display: false },
+                    }
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
