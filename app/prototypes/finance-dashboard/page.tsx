@@ -76,6 +76,9 @@ export default function FinanceDashboard() {
     <div className={styles.container}>
       <div className={styles.content}>
         <header className={styles.header}>
+          <div className={styles.navigation}>
+            <a href="/" className={styles.backLink}>← Back to Home</a>
+          </div>
           <h1 className={styles.title}>Personal finance dashboard</h1>
         </header>
 

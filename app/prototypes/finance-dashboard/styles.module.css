@@ -17,6 +17,7 @@
 .header {
   margin-bottom: 3rem;
   text-align: center;
+  position: relative;
 }
 
 .title {
@@ -133,4 +134,22 @@
 
 .list li {
   margin-bottom: 0.5rem;
+}
+
+.navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.backLink {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #1a1a1a;
 }

@@ -8,7 +8,7 @@
 // 4. Rename and customize the component and styles as needed
 
 import { useState } from 'react';
-import styles from './vintage-mac.module.css';
+import styles from './styles.module.css';
 
 interface Post {
   id: number;
@@ -57,42 +57,51 @@ export default function HummingbirdFeed() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.window}>
-        <div className={styles.titleBar}>
-          <h1 className={styles.titleText}>New post</h1>
-        </div>
-        <form onSubmit={handleSubmit} className={styles.postForm}>
-          <textarea
-            value={newPost}
-            onChange={(e) => setNewPost(e.target.value)}
-            placeholder="What's happening?"
-            className={styles.postInput}
-          />
-          <button type="submit" className={styles.postButton}>Post</button>
-        </form>
-      </div>
+    <div className={styles.pageWrapper}>
+      <nav className={styles.navigation}>
+        <a href="/" className={styles.homeLink}>← Home</a>
+      </nav>
+      
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Hummingbird</h1>
+          <p className={styles.subtitle}>Share your thoughts</p>
+        </header>
 
-      <div className={styles.window}>
-        <div className={styles.titleBar}>
-          <h2 className={styles.titleText}>Feed</h2>
-        </div>
-        <div className={styles.feed}>
-          {posts.map(post => (
-            <div key={post.id} className={styles.post}>
-              <div className={styles.postHeader}>
-                <div className={styles.avatar}>
-                  {post.username[0]}
-                </div>
-                <div className={styles.postMeta}>
-                  <span className={styles.username}>{post.username}</span>
-                  <span className={styles.timestamp}>{post.timestamp}</span>
-                </div>
-              </div>
-              <p className={styles.content}>{post.content}</p>
+        <main className={styles.main}>
+          <section className={styles.createSection}>
+            <form onSubmit={handleSubmit} className={styles.postForm}>
+              <textarea
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
+                placeholder="What's happening?"
+                className={styles.postInput}
+              />
+              <button type="submit" className={styles.postButton}>
+                Post
+              </button>
+            </form>
+          </section>
+
+          <section className={styles.feedSection}>
+            <div className={styles.feed}>
+              {posts.map(post => (
+                <article key={post.id} className={styles.post}>
+                  <div className={styles.postHeader}>
+                    <div className={styles.avatar}>
+                      {post.username[0]}
+                    </div>
+                    <div className={styles.postMeta}>
+                      <span className={styles.username}>{post.username}</span>
+                      <span className={styles.timestamp}>{post.timestamp}</span>
+                    </div>
+                  </div>
+                  <p className={styles.content}>{post.content}</p>
+                </article>
+              ))}
             </div>
-          ))}
-        </div>
+          </section>
+        </main>
       </div>
     </div>
   );
